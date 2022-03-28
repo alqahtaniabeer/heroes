@@ -1,0 +1,152 @@
+<div class="page-one p-3">
+    <div class="container-fluid">
+        <!-- Content here -->
+        <div class="row">
+            <!-- begin::Heros Filters -->
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div>
+                    <h4 class="mb-3">Filters</h4>
+                </div>
+                <div [formGroup]="formGroup">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email" [(ngModel)]="email" 
+                        autocomplete="off" (keyup)="applyFilter(email)">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput formControlName="phone" [(ngModel)]="phone" 
+                        autocomplete="off" (keyup)="applyFilter(phone)">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="name" [(ngModel)]="name" 
+                        autocomplete="off" (keyup)="applyFilter(name)">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Company</mat-label>
+                        <input matInput type="email" formControlName="company" [(ngModel)]="company" 
+                        autocomplete="off" (keyup)="applyFilter(company)">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country" [(ngModel)]="country" >
+                            <mat-option *ngFor="let country of countries" (click)="applyFilter(country.value)">{{country.label}}</mat-option>
+                        </mat-select>				
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Date</mat-label>
+                        <input matInput type="date" formControlName="date" [(ngModel)]="date" 
+                        autocomplete="off" (click)="applyFilter(date)">
+                    </mat-form-field>
+                    <div class="text-center mt-3">
+                        <button mat-flat-button color="primary">
+                            <mat-icon>filter_list</mat-icon>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- end::Heros Filters -->
+            <!-- begin::Heros Table -->
+            <div class="col-lg-10 col-md-8 col-sm-6">
+                <div class="row">
+                    <!-- Title -->
+                    <div class="col-8">
+                        <h4 class="mb-3">Heroes</h4>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-4 text-right">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Search</mat-label>
+                            <input matInput placeholder="Enter your text" (keyup)="applySearch($event)">
+                            <mat-icon matSuffix class="search-icon">search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+                    class="mat-elevation-z8">
+    
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+                            Name
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <!-- Phone Column -->
+                    <ng-container matColumnDef="phone">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Phone
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                    </ng-container>
+
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Email
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+
+                    <!-- Date Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Date
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.date | date: 'mediumDate'}} </td>
+                    </ng-container>
+
+                    <!-- Power Column -->
+                    <ng-container matColumnDef="power">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by hero power">
+                            Hero Power
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.power}} </td>
+                    </ng-container>
+    
+    
+                    <!-- Country Column -->
+                    <ng-container matColumnDef="country">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Country
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+                    </ng-container>
+                    
+                    <!-- Company Column -->
+                    <ng-container matColumnDef="company">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Company
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+                    </ng-container>
+
+                    <!-- Manage Column -->
+                    <ng-container matColumnDef="manage">
+                        <th mat-header-cell *matHeaderCellDef  class="text-right"> Manage </th>
+                        <td mat-cell *matCellDef="let element"  class="text-right">
+                            <a href="#" class="btn-bg-light btn-active-color-primary btn-sm me-1"><span class="svg-icon"><svg class="svg-activ" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="black"></path>
+                                <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="black"></path>
+                                </svg></span><!---->
+                            </a>
+                            <a href="#" class="btn-icon btn-bg-light btn-active-color-primary btn-sm pr-0"><span class="svg-icon"><svg class="svg-activ" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black"></path>
+                                <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="black"></path>
+                                <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="black"></path>
+                                </svg></span><!---->
+                            </a>
+                        </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <!-- end::Heros Table -->
+        </div>
+    </div>
+</div>

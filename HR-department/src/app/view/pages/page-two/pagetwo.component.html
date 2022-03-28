@@ -1,0 +1,102 @@
+<div class="page-one p-3">
+    <div class="container-fluid">
+        <!-- Content here -->
+        <div class="row">
+            <!-- begin::Heros Filters -->
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div>
+                    <h4 class="mb-3">Filters</h4>
+                </div>
+                <div [formGroup]="formGroup">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email" [(ngModel)]="email" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput formControlName="phone" [(ngModel)]="phone" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="name" [(ngModel)]="name" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Company</mat-label>
+                        <input matInput type="email" formControlName="company" [(ngModel)]="company" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country" [(ngModel)]="country">
+                            <mat-option *ngFor="let country of countries">{{country.label}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Date</mat-label>
+                        <input matInput type="date" formControlName="date" [(ngModel)]="date" autocomplete="off">
+                    </mat-form-field>
+                    <div class="text-center mt-3">
+                        <button mat-flat-button color="primary">
+                            <mat-icon>filter_list</mat-icon>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- end::Heros Filters -->
+            <!-- begin::Heros Table -->
+            <div class="col-lg-10 col-md-8 col-sm-6">
+                <div class="row">
+                    <!-- Title -->
+                    <div class="col-8">
+                        <h4 class="mb-3">Heroes</h4>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-4 text-right">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Search</mat-label>
+                            <input matInput placeholder="Enter your text">
+                            <mat-icon matSuffix class="search-icon">search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Card -->
+                <ng-container>
+                    <div class="row" *ngIf="returnedCards.length > 0">
+                        <div *ngFor="let card of returnedCards; index as i" class=" m-auto">
+                            <div class="col-md-4 card">
+                                <div class="banner">
+                                    <svg class="svg-icon" viewBox="0 0 20 15">
+                                        <path d="M14.023,12.154c1.514-1.192,2.488-3.038,2.488-5.114c0-3.597-2.914-6.512-6.512-6.512
+                                            c-3.597,0-6.512,2.916-6.512,6.512c0,2.076,0.975,3.922,2.489,5.114c-2.714,1.385-4.625,4.117-4.836,7.318h1.186
+                                            c0.229-2.998,2.177-5.512,4.86-6.566c0.853,0.41,1.804,0.646,2.813,0.646c1.01,0,1.961-0.236,2.812-0.646
+                                            c2.684,1.055,4.633,3.568,4.859,6.566h1.188C18.648,16.271,16.736,13.539,14.023,12.154z M10,12.367
+                                            c-2.943,0-5.328-2.385-5.328-5.327c0-2.943,2.385-5.328,5.328-5.328c2.943,0,5.328,2.385,5.328,5.328
+                                            C15.328,9.982,12.943,12.367,10,12.367z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <h4 class="name">{{ card.name }}</h4>
+                                <div class="country">
+                                    <mat-icon> location_on</mat-icon>
+                                    {{ card.country }}
+                                </div>
+                                <div class="actions">
+                                    <div class="hero-power">
+                                        <h4><a><span>{{ card.power }}</span><small>Hero Power</small></a></h4>
+                                    </div>
+                                    <div class="like-btn">
+                                        <button>
+                                            <mat-icon>favorite</mat-icon>
+                                            Like
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <!-- end::Heros Table -->
+        </div>
+    </div>
+</div>
